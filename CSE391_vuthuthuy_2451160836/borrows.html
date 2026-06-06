@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Phiếu Mượn Sách</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <h1>QUẢN LÝ PHIẾU MƯỢN SÁCH</h1>
+
+    <button id="openModalBtn">
+        + Thêm phiếu mượn
+    </button>
+
+    <!-- THỐNG KÊ -->
+    <div class="statistics">
+
+        <p>
+            Tổng số phiếu:
+            <span id="totalBorrows">0</span>
+        </p>
+
+        <p>
+            Số phiếu đang mượn:
+            <span id="borrowingCount">0</span>
+        </p>
+
+        <p>
+            Số phiếu đã trả:
+            <span id="returnedCount">0</span>
+        </p>
+
+    </div>
+
+    <!-- THÔNG BÁO -->
+    <div id="message"></div>
+
+    <!-- DANH SÁCH -->
+     <div class="table-container">
+
+    <table>
+
+        <caption>
+            Danh sách phiếu mượn
+        </caption>
+
+        <thead>
+
+            <tr>
+
+                <th>Mã phiếu</th>
+                <th>Người mượn</th>
+                <th>Mã sách</th>
+                <th>Thể loại</th>
+                <th>Ngày mượn</th>
+                <th>Hạn trả</th>
+                <th>Điện thoại</th>
+                <th>Email</th>
+                <th>Trạng thái</th>
+                <th>Ghi chú</th>
+                <th>Hành động</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody id="borrowList">
+
+        </tbody>
+
+    </table>
+
+    <!-- MODAL -->
+    <div id="borrowModal" class="modal hidden">
+
+        <form id="borrowForm">
+
+            <h2 id="formTitle">
+                + Thêm phiếu mượn
+            </h2>
+
+            <!-- MÃ PHIẾU -->
+            <label for="borrowId">
+                Mã phiếu mượn
+            </label>
+
+            <input
+                type="text"
+                id="borrowId"
+                placeholder="PM-2048"
+                required
+            >
+
+            <small id="borrowIdError"></small>
+
+            <!-- HỌ TÊN -->
+            <label for="borrowerName">
+                Họ tên người mượn
+            </label>
+
+            <input
+                type="text"
+                id="borrowerName"
+                placeholder="Nguyễn Văn A"
+                required
+            >
+
+            <small id="nameError"></small>
+
+            <!-- MÃ SÁCH -->
+            <label for="bookId">
+                Mã sách
+            </label>
+
+            <input
+                type="text"
+                id="bookId"
+                placeholder="BK10234"
+                required
+            >
+
+            <small id="bookIdError"></small>
+
+            <!-- THỂ LOẠI -->
+            <label for="category">
+                Thể loại sách
+            </label>
+
+            <select id="category" required>
+
+                <option value="">
+                    -- Chọn thể loại --
+                </option>
+
+                <option value="CNTT">
+                    CNTT
+                </option>
+
+                <option value="Kinh tế">
+                    Kinh tế
+                </option>
+
+                <option value="Ngoại ngữ">
+                    Ngoại ngữ
+                </option>
+
+                <option value="Kỹ năng">
+                    Kỹ năng
+                </option>
+
+            </select>
+
+            <small id="categoryError"></small>
+
+            <!-- NGÀY MƯỢN -->
+            <label for="borrowDate">
+                Ngày mượn
+            </label>
+
+            <input
+                type="date"
+                id="borrowDate"
+                required
+            >
+
+            <small id="borrowDateError"></small>
+
+            <!-- HẠN TRẢ -->
+            <label for="dueDate">
+                Hạn trả
+            </label>
+
+            <input
+                type="date"
+                id="dueDate"
+                required
+            >
+
+            <small id="dueDateError"></small>
+
+            <!-- ĐIỆN THOẠI -->
+            <label for="phone">
+                Số điện thoại liên hệ
+            </label>
+
+            <input
+                type="text"
+                id="phone"
+                placeholder="0987654321"
+                required
+            >
+
+            <small id="phoneError"></small>
+
+            <!-- EMAIL -->
+            <label for="email">
+                Email liên hệ
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="abc@library.vn"
+                required
+            >
+
+            <small id="emailError"></small>
+
+            <!-- TRẠNG THÁI -->
+            <label>
+                Trạng thái mượn
+            </label>
+
+            <div class="radio-group">
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="status"
+                        value="Đang mượn"
+                    >
+
+                    Đang mượn
+
+                </label>
+
+                <label>
+
+                    <input
+                        type="radio"
+                        name="status"
+                        value="Đã trả"
+                    >
+
+                    Đã trả
+
+                </label>
+
+            </div>
+
+            <small id="statusError"></small>
+
+            <!-- GHI CHÚ -->
+            <label for="note">
+                Ghi chú
+            </label>
+
+            <textarea
+                id="note"
+                rows="4"
+                placeholder="Nhập ghi chú (nếu có)"
+            ></textarea>
+
+            <small id="noteError"></small>
+
+            <!-- NÚT -->
+            <div class="form-buttons">
+
+                <button type="submit">
+                    Lưu
+                </button>
+
+                <button
+                    type="button"
+                    id="closeModalBtn"
+                >
+                    Đóng
+                </button>
+
+            </div>
+
+        </form>
+
+        </table>
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
